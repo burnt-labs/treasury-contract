@@ -1,6 +1,7 @@
 [package]
 description = "Treasury contract for the XION network's fee grant infrastructure"
 edition     = "2021"
+license     = "MIT"
 name        = "treasury"
 version     = "0.1.0"
 

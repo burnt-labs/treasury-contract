@@ -29,3 +29,7 @@ docker run --rm -v "$(pwd)":/code cosmwasm/optimizer:0.17.0
 This contract is an asset in the
 [Core Protocol Contracts bug bounty program](https://github.com/burnt-labs/bug-bounty/blob/main/programs/contracts.md).
 See [SECURITY.md](SECURITY.md) for how to report a vulnerability.
+
+## License
+
+[MIT](LICENSE)
