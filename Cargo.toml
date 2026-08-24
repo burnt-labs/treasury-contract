@@ -1,9 +1,11 @@
 [package]
-description = "Treasury contract for the XION network's fee grant infrastructure"
-edition     = "2021"
-license     = "MIT"
-name        = "treasury"
-version     = "0.1.0"
+description  = "Treasury contract for the XION network's fee grant infrastructure"
+edition      = "2021"
+license      = "MIT"
+name         = "treasury"
+resolver     = "3"
+rust-version = "1.86.0"
+version      = "0.1.0"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [lib]
