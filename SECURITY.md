@@ -39,18 +39,44 @@ contract version before submitting.
 
 ### Fee Grant Scope
 
-Fee grant issuance findings are in scope where an **unprivileged caller can
-extract value from the treasury's XION balance without effective bound**.
+The treasury contract is a gas sponsor. It issues fee grants so an application
+can pay gas on behalf of its users, and the `grant_configs` set by the treasury
+admin are the authorization policy deciding who qualifies. A caller who
+satisfies that policy and receives a fee grant is the design working, not an
+attacker defeating it.
 
-A grant is treated as bounded — and therefore out of scope — only when its
-allowance and expiration **cannot be reset, refreshed, revoked and reissued,
-or otherwise renewed by an unprivileged caller**. Where a configured spend cap
-can be renewed, the cap does not bound total extraction in practice, and the
-finding is in scope.
+Fee grant issuance findings are in scope where a caller **obtains sponsorship
+the treasury's own configuration does not authorize**, including:
 
-Findings against genuinely bounded grant operations are not eligible. That
-design intentionally delegates authorization to the calling application layer,
-and a bounded grant behaving as specified is not a vulnerability.
+- Issuing a fee grant to a grantee the configured `grant_configs` do not
+  authorize, or without the required authz grants existing on chain
+- Issuing an allowance differing in type, scope, or spend limit from the
+  configured `fee_config`
+- Bypassing, defeating, or forging the authz verification performed during
+  issuance
+- Causing the treasury to sponsor messages outside the scope of the configured
+  allowance type
+
+The following are **not** in scope, because each describes the contract
+operating as specified:
+
+- Repeated or renewed issuance to a caller who satisfies the configured
+  authorization on every call. Session grants are expected to be reissued as
+  session keys expire; renewability is a property of the design
+- Aggregate consumption across many callers who each satisfy the configured
+  authorization, including Sybil variants. Total sponsorship is bounded by the
+  treasury balance and the operator's configuration, never by a per-grant
+  `spend_limit`
+- Consequences of the operator's own allowance configuration, such as choosing
+  an unscoped `BasicAllowance` where `AllowedMsgAllowance`, `AuthzAllowance`,
+  or `ContractsAllowance` would have narrowed what the sponsored gas can buy
+
+`spend_limit` caps a single grant. It is not specified as a lifetime or
+aggregate cap on a given grantee, and a report treating it as one is not
+describing a defect.
+
+This design intentionally delegates authorization to the calling application
+layer. A grant operation behaving as configured is not a vulnerability.
 
 ## Severity
 
@@ -119,7 +145,8 @@ actors behave according to their role.
 - Attacks requiring malicious contract deployment on mainnet
 - Denial of service requiring sustained attacker resource expenditure
   proportional to the harm caused
-- Fee grant operations that are bounded as defined above
+- Fee grant issuance behaving as the treasury's configuration specifies, as
+  set out under Fee Grant Scope
 - Governance attacks requiring a malicious proposal to pass
 - Theoretical vulnerabilities without a working end-to-end proof of concept
 - Attacks where the attacker's cost to execute exceeds the demonstrable harm to
