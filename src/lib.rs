@@ -10,5 +10,8 @@ mod state;
 mod grant;
 mod query;
 
+#[cfg(test)]
+mod tests;
+
 pub const CONTRACT_NAME: &str = "treasury";
 pub const CONTRACT_VERSION: &str = env!("CARGO_PKG_VERSION");
