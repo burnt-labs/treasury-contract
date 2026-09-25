@@ -125,8 +125,9 @@ exploitable using only contracts already deployed on mainnet.
 
 Findings are classified at **Medium at most** when the attack must begin with
 control of a contract administrator, governance, or another privileged role —
-or requires that holder to cooperate — and the demonstrated action is already
-within that role's intended authority.
+or requires that holder to cooperate — and the demonstrated impact depends on
+that holder acting self-destructively, outside normal operation, or in collusion
+while using authority the role already has.
 
 The cap does not apply when a flaw lets an attacker who starts without that
 privilege obtain it or bypass its authorization check, or lets a legitimately
