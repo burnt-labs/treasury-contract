@@ -6,6 +6,9 @@ This policy is built from that program's terms.
 [`burnt-labs/bug-bounty`](https://github.com/burnt-labs/bug-bounty) remains the
 canonical source — where this file and the program documents differ, the
 program documents govern.
+Treasury-specific notes below are local explanatory guidance for this asset and
+do not expand scope, authorize testing, or change severity or reward
+eligibility.
 
 ## Reporting a Vulnerability
 
